@@ -1,10 +1,30 @@
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import React from "react";
 import { Image, Text, View } from "react-native";
 import Input from "../components/Input.tsx";
 import ButtonCustom from "../components/ButtonCustom.tsx";
+import {useSelector, useDispatch} from "react-redux";
+import { setUser } from "../../redux/user/action.js";
+import axios from "axios";
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((store) => store.user.user);
+
+  const [form, setForm] = useState({
+    email:'',
+    password:'',
+  });
+
+  const login = () => {
+    axios.post('login', form).then(({data}) => {
+      console.log(data);
+    }).catch((err) => {
+      console.log(err);
+    })
+    //dispatch(setUser('frederick'))
+  }
   return (
     <View className="flex-1 items-center justify-center bg-slate-100">
       <Image
@@ -24,6 +44,7 @@ const LoginPage = () => {
         <View className="m-6">
           <Input
             inputLabel="Email Address"
+            onChangeText="form.email"
             placeholder="Input Your Email"
           ></Input>
 
@@ -31,12 +52,19 @@ const LoginPage = () => {
 
           <Input
             inputLabel="Password"
+            onChangeText="form.password"
             placeholder="Input Your Password"
+            secure={true}
           ></Input>
 
           <View className="my-4"></View>
 
-          <ButtonCustom title="Sign In" onPress={undefined}></ButtonCustom>
+          <ButtonCustom
+            title="Sign In"
+            onPress={() => {
+              login();
+            }}
+          ></ButtonCustom>
         </View>
       </View>
       <StatusBar style="auto" />
