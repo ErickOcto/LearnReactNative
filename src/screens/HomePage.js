@@ -1,15 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { Image, Text, View } from "react-native";
-import Input from "./src/components/Input";
-import ButtonCustom from "./src/components/ButtonCustom";
-import { NavigationContainer } from "@react-navigation/native";
+//import { NavigationContainer } from "@react-navigation/native";
 
-export default function App() {
+export default function HomePage() {
   return (
     <View className="flex-1 items-center justify-center bg-slate-100">
-      <Image className='mb-20'
-        source={require("./assets/icon.png")}
+      <Image
+        className="mb-20"
+        source={require("../assets/icon.png")}
         style={{ width: 155, height: 50, resizeMode: "contain" }}
       ></Image>
 
@@ -22,21 +21,10 @@ export default function App() {
 
       <View className="bg-white w-[327] mx-6 rounded-3xl shadow-md">
         <View className="m-6">
-          <Input
-            inputLabel="Email Address"
-            placeholder="Input Your Email"
-          ></Input>
 
           <View className="my-2"></View>
 
-          <Input
-            inputLabel="Password"
-            placeholder="Input Your Password"
-          ></Input>
-
           <View className="my-4"></View>
-
-          <ButtonCustom title="Sign In" onPress={undefined}></ButtonCustom>
         </View>
       </View>
       <StatusBar style="auto" />
