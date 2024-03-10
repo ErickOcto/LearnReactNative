@@ -1,9 +1,25 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Image, Text, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 //import { NavigationContainer } from "@react-navigation/native";
 
-export default function HomePage() {
+  const HomePage = () => {
+    const [currentUser, setCurrentUser] = useState(null);
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const userJSON = await AsyncStorage.getItem("username");
+          if (userJSON !== null) {
+            setCurrentUser(userJSON);
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      };
+      fetchData();
+    }, []);
   return (
     <View className="flex-1  bg-slate-100 relative">
       {/* Profile */}
@@ -11,7 +27,8 @@ export default function HomePage() {
         <View className="flex-1">
           <Text className="text-base text-slate-300">Howdy,</Text>
           <Text className="text-xl font-bold text-blue-950">
-            Shifa Sharifah
+            {/* Nama User */}
+            {currentUser ? currentUser : "Guest"}
           </Text>
         </View>
         <Image
@@ -84,4 +101,6 @@ export default function HomePage() {
       <StatusBar style="auto" />
     </View>
   );
-}
+};
+
+export default HomePage;

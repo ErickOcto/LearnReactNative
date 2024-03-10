@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, Image, TextInput, Button, StatusBar } from "react-native";
+import { View, Text, Image, TextInput, StatusBar } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import ButtonCustom from "../components/ButtonCustom";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginPage = () => {
   const [form, setForm] = useState({
@@ -19,7 +20,8 @@ const LoginPage = () => {
         form
       );
       console.log("Login Success:", response.data);
-      //await AsyncStorage.setItem("accessToken", response.data.token);
+      await AsyncStorage.setItem("accessToken", response.data.token);
+      await AsyncStorage.setItem("username", response.data.user.name);
       navigation.navigate("HomePage");
     } catch (error) {
       console.error("Login Error:", error);

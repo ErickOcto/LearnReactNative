@@ -4,6 +4,7 @@ import LoginPage from '../screens/LoginPage';
 import Splash from '../screens/Splash';
 import OnBoarding from '../screens/OnBoardingPage';
 import HomePage from '../screens/HomePage';
+import StudentIndex from '../screens/Student/StudentIndex';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +15,7 @@ const Router = () => {
         <Stack.Screen name="OnBoarding" component={OnBoarding}></Stack.Screen>
         <Stack.Screen name="Login" component={LoginPage}></Stack.Screen>
         <Stack.Screen name="HomePage" component={HomePage}></Stack.Screen>
+        <Stack.Screen name="StudentIndex" component={StudentIndex}></Stack.Screen>
       </Stack.Navigator>
     );
 };
