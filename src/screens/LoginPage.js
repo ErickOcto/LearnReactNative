@@ -19,6 +19,7 @@ const LoginPage = () => {
         form
       );
       console.log("Login Success:", response.data);
+      //await AsyncStorage.setItem("accessToken", response.data.token);
       navigation.navigate("HomePage");
     } catch (error) {
       console.error("Login Error:", error);
