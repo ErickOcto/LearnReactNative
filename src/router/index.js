@@ -8,6 +8,7 @@ import StudentIndex from '../screens/Student/StudentIndex';
 import TeacherIndex from '../screens/Teachers/TeacherIndex';
 import OfficerIndex from '../screens/Officer/OfficerIndex';
 import OfficerCreate from '../screens/Officer/OfficerCreate';
+import OfficerEdit from '../screens/Officer/OfficerEdit';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,8 +21,11 @@ const Router = () => {
         <Stack.Screen name="HomePage" component={HomePage}></Stack.Screen>
         <Stack.Screen name="StudentIndex" component={StudentIndex}></Stack.Screen>
         <Stack.Screen name="TeacherIndex" component={TeacherIndex}></Stack.Screen>
+
+        {/* Officer CRUD */}
         <Stack.Screen name="OfficerIndex" component={OfficerIndex}></Stack.Screen>
         <Stack.Screen name="OfficerCreate" component={OfficerCreate}></Stack.Screen>
+        <Stack.Screen name="OfficerEdit" component={OfficerEdit}></Stack.Screen>
       </Stack.Navigator>
     );
 };
