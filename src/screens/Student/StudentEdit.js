@@ -7,6 +7,7 @@ const StudentEdit = ({ route, navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [nis, setNis] = useState("");
   const [majors, setMajors] = useState([]);
   const [classrooms, setClassrooms] = useState([]);
   const [selectedMajor, setSelectedMajor] = useState(null);
@@ -39,9 +40,10 @@ const StudentEdit = ({ route, navigation }) => {
         const response = await axios.get(
           `http://127.0.0.1:8000/api/students/${studentId}`
         );
-        const { name, email } = response.data.data;
+        const { name, email, nis } = response.data.data;
         setName(name);
         setEmail(email);
+        setNis(nis.toString());
         console.log(studentId);
       } catch (error) {
         console.error("Error fetching student detail:", error);
@@ -52,10 +54,14 @@ const StudentEdit = ({ route, navigation }) => {
   }, [studentId]);
 
   const handleUpdateStudent = async () => {
+    if(selectedClassroom == null && selectedMajor == null){
+      Alert.alert("Please select a classroom and  a major");
+    }
     try {
       const requestData = {
         name: name,
         email: email,
+        nis: nis,
         password: password,
         major_id: selectedMajor,
         classroom_id: selectedClassroom,
@@ -86,6 +92,13 @@ const StudentEdit = ({ route, navigation }) => {
           onChangeText={setName}
           value={name}
           placeholder="Name"
+        />
+        <Text className="font-bold text-sm mb-2 text-blue-950">NIS</Text>
+        <TextInput
+          className="w-full font-normal rounded-xl border border-slate-200 p-3 mb-4 focus:border-blue-700"
+          onChangeText={setNis}
+          value={nis}
+          placeholder="NIS"
         />
         <Text className="font-bold text-sm mb-2 text-blue-950">Email</Text>
         <TextInput

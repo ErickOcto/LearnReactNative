@@ -9,6 +9,7 @@ const StudentCreate = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [nis, setNis] = useState("");
   const [loading, setLoading] = useState(false);
   const [majors, setMajors] = useState([]);
   const [classrooms, setClassrooms] = useState([]);
@@ -44,6 +45,7 @@ const StudentCreate = () => {
         name: name,
         email: email,
         password: password,
+        nis: nis,
         major_id: selectedMajor,
         classroom_id: selectedClassroom,
       };
@@ -78,6 +80,13 @@ const StudentCreate = () => {
           value={name}
           onChangeText={setName}
         />
+        <Text className="font-bold text-sm mb-2 text-blue-950">NIS</Text>
+        <TextInput
+          className="font-normal rounded-xl border border-slate-200 p-3 mb-4 focus:border-blue-700 w-full"
+          placeholder="NIS"
+          value={nis}
+          onChangeText={setNis}
+        />
         <Text className="font-bold text-sm mb-2 text-blue-950">Email</Text>
         <TextInput
           className="w-full font-normal rounded-xl border border-slate-200 p-3 mb-4 focus:border-blue-700"
@@ -95,7 +104,7 @@ const StudentCreate = () => {
         />
         <Text className="font-bold text-sm mb-2 text-blue-950">Major</Text>
         <RNPickerSelect
-        className=""
+          className=""
           onValueChange={(value) => setSelectedMajor(value)}
           items={majors.map((major) => ({
             label: major.name,
@@ -105,7 +114,7 @@ const StudentCreate = () => {
         <View className="my-2"></View>
         <Text className="font-bold text-sm mb-2 text-blue-950">Classroom</Text>
         <RNPickerSelect
-        style={defaultStyles}
+          style={defaultStyles}
           onValueChange={(value) => setSelectedClassroom(value)}
           items={classrooms.map((classroom) => ({
             label: classroom.name,
