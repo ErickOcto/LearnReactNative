@@ -24,7 +24,7 @@ const CreateOfficerScreen = () => {
             email: email,
             password: password,
           };
-          console.log("Data yang akan dikirim:", requestData);
+          console.log("Data:", requestData);
       const response = await axios.post("http://127.0.0.1:8000/api/officers", {
         name: name,
         email: email,
@@ -46,21 +46,22 @@ const CreateOfficerScreen = () => {
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
     >
       <View className="w-full bg-white p-6 rounded-3xl">
-        <Text className="font-medium text-sm mb-2">Name</Text>
+        <Text className="mb-4 font-bold text-xl text-center text-blue-950">Add Officer</Text>
+        <Text className="font-bold text-sm mb-2 text-blue-950">Name</Text>
         <TextInput
           className="font-normal rounded-xl border border-slate-200 p-3 mb-4 focus:border-blue-700 w-full"
           placeholder="Name"
           value={name}
           onChangeText={setName}
         />
-        <Text className="font-medium text-sm mb-2">Email</Text>
+        <Text className="font-bold text-sm mb-2 text-blue-950">Email</Text>
         <TextInput
           className="w-full font-normal rounded-xl border border-slate-200 p-3 mb-4 focus:border-blue-700"
           placeholder="Email"
           value={email}
           onChangeText={setEmail}
         />
-        <Text className="font-medium text-sm mb-2">Password</Text>
+        <Text className="font-bold text-sm mb-2 text-blue-950">Password</Text>
         <TextInput
           className="w-full font-normal rounded-xl border border-slate-200 p-3 mb-10 focus:border-blue-700"
           placeholder="Password"

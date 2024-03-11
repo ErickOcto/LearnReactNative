@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, Button, Alert } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import axios from "axios";
 
 const OfficerEdit = ({ route, navigation }) => {
@@ -7,6 +7,11 @@ const OfficerEdit = ({ route, navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const officerId = route.params.officerId;
+
+  
+    const handleBack = () => {
+      navigation.goBack();
+    };
 
   useEffect(() => {
     // Fetch officer detail based on officerId
@@ -42,46 +47,52 @@ const OfficerEdit = ({ route, navigation }) => {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Edit Officer</Text>
-      <TextInput
-        style={{
-          height: 40,
-          borderColor: "gray",
-          borderWidth: 1,
-          marginBottom: 10,
-          paddingHorizontal: 10,
-        }}
-        onChangeText={setName}
-        value={name}
-        placeholder="Name"
-      />
-      <TextInput
-        style={{
-          height: 40,
-          borderColor: "gray",
-          borderWidth: 1,
-          marginBottom: 10,
-          paddingHorizontal: 10,
-        }}
-        onChangeText={setEmail}
-        value={email}
-        placeholder="Email"
-      />
-      <TextInput
-        style={{
-          height: 40,
-          borderColor: "gray",
-          borderWidth: 1,
-          marginBottom: 10,
-          paddingHorizontal: 10,
-        }}
-        onChangeText={setPassword}
-        value={password}
-        placeholder="Password"
-        secureTextEntry={true}
-      />
-      <Button title="Update Officer" onPress={handleUpdateOfficer} />
+    <View className="flex-1 items-center justify-center mx-6">
+      <View className="w-full bg-white p-6 rounded-3xl">
+        <Text className="mb-4 font-bold text-xl text-center text-blue-950">
+          Edit Officer
+        </Text>
+        <Text className="font-bold text-sm mb-2 text-blue-950">Name</Text>
+        <TextInput
+          className="w-full font-normal rounded-xl border border-slate-200 p-3 mb-4 focus:border-blue-700"
+          onChangeText={setName}
+          value={name}
+          placeholder="Name"
+        />
+        <Text className="font-bold text-sm mb-2 text-blue-950">Email</Text>
+        <TextInput
+          className="w-full font-normal rounded-xl border border-slate-200 p-3 mb-4 focus:border-blue-700"
+          onChangeText={setEmail}
+          value={email}
+          placeholder="Email"
+        />
+        <Text className="font-bold text-sm mb-2 text-blue-950">Password</Text>
+        <TextInput
+          className="w-full font-normal rounded-xl border border-slate-200 p-3 mb-10 focus:border-blue-700"
+          onChangeText={setPassword}
+          value={password}
+          placeholder="Password"
+          secureTextEntry={true}
+        />
+        <View className="flex-row gap-x-2 items-center justify-end">
+          <TouchableOpacity
+            className="w-1/3 border-blue-700 border rounded-full active:bg-black"
+            onPress={handleBack}
+          >
+            <Text className="py-3 text-center text-blue-700 font-bold text-base">
+              Back
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            className="w-1/3 bg-blue-700 rounded-full active:bg-black"
+            onPress={handleUpdateOfficer}
+          >
+            <Text className="py-3 text-center text-white font-bold text-base">
+              Save
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 };
