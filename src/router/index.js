@@ -4,8 +4,15 @@ import LoginPage from '../screens/LoginPage';
 import Splash from '../screens/Splash';
 import OnBoarding from '../screens/OnBoardingPage';
 import HomePage from '../screens/HomePage';
+
+// Import Student CRUD
 import StudentIndex from '../screens/Student/StudentIndex';
+import StudentCreate from '../screens/Student/StudentCreate';
+import StudentEdit from '../screens/Student/StudentEdit';
+
 import TeacherIndex from '../screens/Teachers/TeacherIndex';
+
+// Import Officer CRUD
 import OfficerIndex from '../screens/Officer/OfficerIndex';
 import OfficerCreate from '../screens/Officer/OfficerCreate';
 import OfficerEdit from '../screens/Officer/OfficerEdit';
@@ -19,7 +26,13 @@ const Router = () => {
         <Stack.Screen name="OnBoarding" component={OnBoarding}></Stack.Screen>
         <Stack.Screen name="Login" component={LoginPage}></Stack.Screen>
         <Stack.Screen name="HomePage" component={HomePage}></Stack.Screen>
+
+        {/* Student CRUD */}
         <Stack.Screen name="StudentIndex" component={StudentIndex}></Stack.Screen>
+        <Stack.Screen name="StudentCreate" component={StudentCreate}></Stack.Screen>
+        <Stack.Screen name="StudentEdit" component={StudentEdit}></Stack.Screen>
+
+        {/* Teacher CRUD */}
         <Stack.Screen name="TeacherIndex" component={TeacherIndex}></Stack.Screen>
 
         {/* Officer CRUD */}

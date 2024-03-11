@@ -22,22 +22,19 @@ import axios from "axios";
       fetchData();
     }, []);
 
-    const [students, setStudents] = useState(0);
-    useEffect(() => {
-      const fetchStudents = async () => {
-        try {
-          const response = await axios.get(
-            "http://127.0.0.1:8000/api/total-student"
-          );
-          console.log(response.data);
-          setStudents(response.data.data);
-        } catch (error) {
-          console.error("Error fetching students:", error);
-        }
-      };
+  const [students, setStudents] = useState(0);
 
-      fetchStudents();
-    }, []);
+  const fetchStudents = async () => {
+    try {
+      const response = await axios.get(
+        "http://127.0.0.1:8000/api/total-student"
+      );
+      console.log(response.data);
+      setStudents(response.data.data);
+    } catch (error) {
+      console.error("Error fetching students:", error);
+    }
+  };
 
   const [officers, setOfficers] = useState(0);
 
@@ -56,26 +53,25 @@ import axios from "axios";
   useFocusEffect(
     useCallback(() => {
       fetchOfficers();
+      fetchStudents();
+      fetchTeachers();
     }, [])
   );
 
 
-    const [teachers, setTeachers] = useState(0); // Mengubah menjadi 0, karena data yang diterima adalah angka, bukan array
+  const [teachers, setTeachers] = useState(0);
 
-    useEffect(() => {
-      const fetchStudents = async () => {
-        try {
-          const response = await axios.get(
-            "http://127.0.0.1:8000/api/total-teacher"
-          );
-          setTeachers(response.data.data); // Mengubah penanganan respons sesuai dengan struktur respons yang diberikan
-        } catch (error) {
-          // console.error("Error fetching teachers:", error);
-        }
-      };
-
-      fetchStudents();
-    }, []);
+  const fetchTeachers = async () => {
+    try {
+      const response = await axios.get(
+        "http://127.0.0.1:8000/api/total-teacher"
+      );
+      console.log(response.data);
+      setTeachers(response.data.data);
+    } catch (error) {
+      console.error("Error fetching teachers:", error);
+    }
+  };
 
     const navigation = useNavigation();
 

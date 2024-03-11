@@ -14,7 +14,6 @@ const OfficerEdit = ({ route, navigation }) => {
     };
 
   useEffect(() => {
-    // Fetch officer detail based on officerId
     const fetchOfficerDetail = async () => {
       try {
         const response = await axios.get(

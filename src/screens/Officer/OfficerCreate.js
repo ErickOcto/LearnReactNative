@@ -3,7 +3,7 @@ import { View, TextInput, Alert, TouchableOpacity, Text } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 
-const CreateOfficerScreen = () => {
+const OfficerCreate = () => {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -93,4 +93,4 @@ const CreateOfficerScreen = () => {
   );
 };
 
-export default CreateOfficerScreen;
+export default OfficerCreate;
