@@ -5,6 +5,9 @@ import Splash from '../screens/Splash';
 import OnBoarding from '../screens/OnBoardingPage';
 import HomePage from '../screens/HomePage';
 import StudentIndex from '../screens/Student/StudentIndex';
+import TeacherIndex from '../screens/Teachers/TeacherIndex';
+import OfficerIndex from '../screens/Officer/OfficerIndex';
+import OfficerCreate from '../screens/Officer/OfficerCreate';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +19,9 @@ const Router = () => {
         <Stack.Screen name="Login" component={LoginPage}></Stack.Screen>
         <Stack.Screen name="HomePage" component={HomePage}></Stack.Screen>
         <Stack.Screen name="StudentIndex" component={StudentIndex}></Stack.Screen>
+        <Stack.Screen name="TeacherIndex" component={TeacherIndex}></Stack.Screen>
+        <Stack.Screen name="OfficerIndex" component={OfficerIndex}></Stack.Screen>
+        <Stack.Screen name="OfficerCreate" component={OfficerCreate}></Stack.Screen>
       </Stack.Navigator>
     );
 };

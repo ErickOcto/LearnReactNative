@@ -1,8 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import React, {useState, useEffect} from "react";
-import { Image, Text, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 //import { NavigationContainer } from "@react-navigation/native";
 
   const HomePage = () => {
@@ -20,10 +21,75 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
       };
       fetchData();
     }, []);
+
+    const [students, setStudents] = useState(0);
+    useEffect(() => {
+      const fetchStudents = async () => {
+        try {
+          const response = await axios.get(
+            "http://127.0.0.1:8000/api/total-student"
+          );
+          console.log(response.data);
+          setStudents(response.data.data);
+        } catch (error) {
+          console.error("Error fetching students:", error);
+        }
+      };
+
+      fetchStudents();
+    }, []);
+
+    const [officers, setOfficers] = useState(0);
+      useEffect(() => {
+        const fetchOfficers = async () => {
+          try {
+            const response = await axios.get(
+              "http://127.0.0.1:8000/api/total-officer"
+            );
+            console.log(response.data);
+            setOfficers(response.data.data);
+          } catch (error) {
+            console.error("Error fetching officers:", error);
+          }
+        };
+        fetchOfficers();
+    }, []);
+
+    const [teachers, setTeachers] = useState(0); // Mengubah menjadi 0, karena data yang diterima adalah angka, bukan array
+
+    useEffect(() => {
+      const fetchStudents = async () => {
+        try {
+          const response = await axios.get(
+            "http://127.0.0.1:8000/api/total-teacher"
+          );
+          setTeachers(response.data.data); // Mengubah penanganan respons sesuai dengan struktur respons yang diberikan
+        } catch (error) {
+          // console.error("Error fetching teachers:", error);
+        }
+      };
+
+      fetchStudents();
+    }, []);
+
+    const navigation = useNavigation();
+
+    const handlePressStudent = () => {
+      navigation.navigate("StudentIndex");
+    };
+
+    const handlePressTeacher = () => {
+      navigation.navigate("TeacherIndex");
+    };
+
+    const handlePressOfficer = () => {
+      navigation.navigate("OfficerIndex");
+    };
+
   return (
     <View className="flex-1  bg-slate-100 relative">
       {/* Profile */}
-      <View className="absolute top-14 flex-row mx-12 items-center w-[326]">
+      <View className="absolute top-14 flex-row mx-6 justify-between items-center">
         <View className="flex-1">
           <Text className="text-base text-slate-300">Howdy,</Text>
           <Text className="text-xl font-bold text-blue-950">
@@ -38,8 +104,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
       </View>
 
       {/* List category */}
-      <View className="w-[326] flex-row gap-x-4 mt-36 mx-6">
-        <View>
+      <View className="flex-row flex-wrap items-center justify-between mt-36 mx-6">
+        <TouchableOpacity onPress={handlePressStudent}>
           <View className="bg-white rounded-3xl">
             <View className="m-6">
               <Image
@@ -49,11 +115,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
             </View>
           </View>
           <Text className="font-medium text-base text-blue-950 text-center mt-2">
-            Students
+            {students} Student
           </Text>
-        </View>
+        </TouchableOpacity>
 
-        <View>
+        <TouchableOpacity onPress={handlePressTeacher}>
           <View className="bg-white rounded-3xl">
             <View className="m-6">
               <Image
@@ -63,11 +129,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
             </View>
           </View>
           <Text className="font-medium text-base text-blue-950 text-center mt-2">
-            Teachers
+            {teachers} Teachers
           </Text>
-        </View>
+        </TouchableOpacity>
 
-        <View>
+        <TouchableOpacity onPress={handlePressOfficer}>
           <View className="bg-white rounded-3xl">
             <View className="m-6">
               <Image
@@ -77,9 +143,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
             </View>
           </View>
           <Text className="font-medium text-base text-blue-950 text-center mt-2">
-            Officers
+            {officers} Officers
           </Text>
-        </View>
+        </TouchableOpacity>
 
         <View>
           <View className="bg-white rounded-3xl">

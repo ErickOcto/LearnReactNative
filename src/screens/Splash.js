@@ -4,8 +4,8 @@ import React, { useEffect } from "react";
 const Splash = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
-        navigation.replace('OnBoarding');
-    }, 3000);
+        navigation.replace('HomePage');
+    }, 1000);
   });
   return (
     <View style={styles.container}>
