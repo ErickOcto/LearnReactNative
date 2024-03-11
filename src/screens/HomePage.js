@@ -1,8 +1,8 @@
 import { StatusBar } from "expo-status-bar";
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import axios from "axios";
 //import { NavigationContainer } from "@react-navigation/native";
 
@@ -39,21 +39,26 @@ import axios from "axios";
       fetchStudents();
     }, []);
 
-    const [officers, setOfficers] = useState(0);
-      useEffect(() => {
-        const fetchOfficers = async () => {
-          try {
-            const response = await axios.get(
-              "http://127.0.0.1:8000/api/total-officer"
-            );
-            console.log(response.data);
-            setOfficers(response.data.data);
-          } catch (error) {
-            console.error("Error fetching officers:", error);
-          }
-        };
-        fetchOfficers();
-    }, []);
+  const [officers, setOfficers] = useState(0);
+
+  const fetchOfficers = async () => {
+    try {
+      const response = await axios.get(
+        "http://127.0.0.1:8000/api/total-officer"
+      );
+      console.log(response.data);
+      setOfficers(response.data.data);
+    } catch (error) {
+      console.error("Error fetching officers:", error);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchOfficers();
+    }, [])
+  );
+
 
     const [teachers, setTeachers] = useState(0); // Mengubah menjadi 0, karena data yang diterima adalah angka, bukan array
 

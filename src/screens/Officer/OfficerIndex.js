@@ -1,27 +1,48 @@
+// OfficerIndex.js
+
 import React, { useState, useEffect, useCallback } from "react";
-import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import axios from "axios";
 import BackButton from "../../components/BackButton";
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
-// import { PanGestureHandler, State } from "react-native-gesture-handler";
 
 const OfficerIndex = () => {
-
   const navigation = useNavigation();
 
   const handlePressCreate = () => {
     navigation.navigate("OfficerCreate");
   };
 
+  const handlePressEdit = (officerId) => {
+    navigation.navigate("OfficerEdit", { officerId });
+  };
+
   const [officers, setOfficers] = useState([]);
-  
+
   const fetchOfficers = async () => {
     try {
       const response = await axios.get("http://127.0.0.1:8000/api/officers");
       setOfficers(response.data.data);
     } catch (error) {
       console.error("Error fetching officers:", error);
+    }
+  };
+
+  const handleDeleteOfficer = async (officerId) => {
+    try {
+      await axios.delete(`http://127.0.0.1:8000/api/officers/${officerId}`);
+      fetchOfficers();
+    } catch (error) {
+      console.error("Error deleting officer:", error);
+      Alert.alert("Error", "Failed to delete officer. Please try again.");
     }
   };
 
@@ -41,8 +62,11 @@ const OfficerIndex = () => {
           </Text>
         </View>
       </View>
-      <View className="w-full">
-        <ScrollView className="mx-6 mt-8">
+      <View className="w-full flex-1">
+        <ScrollView
+          className="mx-6 mt-8 flex-1"
+          showsVerticalScrollIndicator={false}
+        >
           {officers.map((officer) => (
             <View
               key={officer.id}
@@ -70,15 +94,17 @@ const OfficerIndex = () => {
                   <Text className="text-slate-500 text-base">
                     {officer.email}
                   </Text>
-
-                  {/* <Text className="font-bold text-base text-blue-950">
-                {officer.major_name} - {officer.classroom_name}
-              </Text> */}
                 </View>
               </View>
               <View className="flex-col items-center gap-2">
-                <FontAwesome name="trash" size={24} color="#FF1E39" />
-                <FontAwesome name="pencil" size={24} color="#EBC200" />
+                <TouchableOpacity
+                  onPress={() => handleDeleteOfficer(officer.id)}
+                >
+                  <FontAwesome name="trash" size={24} color="#FF1E39" />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handlePressEdit(officer.id)}>
+                  <FontAwesome name="pencil" size={24} color="#EBC200" />
+                </TouchableOpacity>
               </View>
             </View>
           ))}
