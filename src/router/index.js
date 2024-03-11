@@ -10,7 +10,10 @@ import StudentIndex from '../screens/Student/StudentIndex';
 import StudentCreate from '../screens/Student/StudentCreate';
 import StudentEdit from '../screens/Student/StudentEdit';
 
+// Import Teacher CRUD
 import TeacherIndex from '../screens/Teachers/TeacherIndex';
+import TeacherCreate from '../screens/Teachers/TeacherCreate';
+import TeacherEdit from '../screens/Teachers/TeacherEdit';
 
 // Import Officer CRUD
 import OfficerIndex from '../screens/Officer/OfficerIndex';
@@ -34,6 +37,8 @@ const Router = () => {
 
         {/* Teacher CRUD */}
         <Stack.Screen name="TeacherIndex" component={TeacherIndex}></Stack.Screen>
+        <Stack.Screen name="TeacherCreate" component={TeacherCreate}></Stack.Screen>
+        <Stack.Screen name="TeacherEdit" component={TeacherEdit}></Stack.Screen>
 
         {/* Officer CRUD */}
         <Stack.Screen name="OfficerIndex" component={OfficerIndex}></Stack.Screen>
