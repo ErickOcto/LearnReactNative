@@ -11,9 +11,7 @@ const StudentCreate = () => {
   const [password, setPassword] = useState("");
   const [nis, setNis] = useState("");
   const [loading, setLoading] = useState(false);
-  const [majors, setMajors] = useState([]);
   const [classrooms, setClassrooms] = useState([]);
-  const [selectedMajor, setSelectedMajor] = useState(null);
   const [selectedClassroom, setSelectedClassroom] = useState(null);
 
   const navigation = useNavigation();
@@ -24,7 +22,6 @@ const StudentCreate = () => {
         const response = await axios.get(
           "http://127.0.0.1:8000/api/student-create-option"
         );
-        setMajors(response.data.majors);
         setClassrooms(response.data.classrooms);
       } catch (error) {
         console.error(error);
@@ -46,7 +43,6 @@ const StudentCreate = () => {
         email: email,
         password: password,
         nis: nis,
-        major_id: selectedMajor,
         classroom_id: selectedClassroom,
       };
       console.log("Data:", requestData);
@@ -101,15 +97,6 @@ const StudentCreate = () => {
           value={password}
           onChangeText={setPassword}
           secureTextEntry
-        />
-        <Text className="font-bold text-sm mb-2 text-blue-950">Major</Text>
-        <RNPickerSelect
-          className=""
-          onValueChange={(value) => setSelectedMajor(value)}
-          items={majors.map((major) => ({
-            label: major.name,
-            value: major.id,
-          }))}
         />
         <View className="my-2"></View>
         <Text className="font-bold text-sm mb-2 text-blue-950">Classroom</Text>

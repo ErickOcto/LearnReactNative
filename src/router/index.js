@@ -21,6 +21,10 @@ import OfficerIndex from '../screens/Officer/OfficerIndex';
 import OfficerCreate from '../screens/Officer/OfficerCreate';
 import OfficerEdit from '../screens/Officer/OfficerEdit';
 
+//Import Classroom CRUD
+import ClassroomIndex from '../screens/Classroom/ClassroomIndex';
+import ClassroomCreate from '../screens/Classroom/ClassroomCreate';
+
 const Stack = createNativeStackNavigator();
 
 const Router = () => {
@@ -52,7 +56,10 @@ const Router = () => {
           component={TeacherCreate}
         ></Stack.Screen>
         <Stack.Screen name="TeacherEdit" component={TeacherEdit}></Stack.Screen>
-        <Stack.Screen name="TeacherDetail" component={TeacherDetail}></Stack.Screen>
+        <Stack.Screen
+          name="TeacherDetail"
+          component={TeacherDetail}
+        ></Stack.Screen>
 
         {/* Officer CRUD */}
         <Stack.Screen
@@ -64,6 +71,10 @@ const Router = () => {
           component={OfficerCreate}
         ></Stack.Screen>
         <Stack.Screen name="OfficerEdit" component={OfficerEdit}></Stack.Screen>
+
+        {/* Classroom CRUD */}
+        <Stack.Screen name="ClassroomIndex" component={ClassroomIndex}></Stack.Screen>
+        <Stack.Screen name="ClassroomCreate" component={ClassroomCreate}></Stack.Screen>
       </Stack.Navigator>
     );
 };

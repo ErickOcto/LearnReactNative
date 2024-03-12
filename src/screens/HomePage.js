@@ -23,7 +23,6 @@ import axios from "axios";
     }, []);
 
   const [students, setStudents] = useState(0);
-
   const fetchStudents = async () => {
     try {
       const response = await axios.get(
@@ -37,7 +36,6 @@ import axios from "axios";
   };
 
   const [officers, setOfficers] = useState(0);
-
   const fetchOfficers = async () => {
     try {
       const response = await axios.get(
@@ -55,12 +53,12 @@ import axios from "axios";
       fetchOfficers();
       fetchStudents();
       fetchTeachers();
+      fetchClassrooms();
     }, [])
   );
 
 
   const [teachers, setTeachers] = useState(0);
-
   const fetchTeachers = async () => {
     try {
       const response = await axios.get(
@@ -70,6 +68,19 @@ import axios from "axios";
       setTeachers(response.data.data);
     } catch (error) {
       console.error("Error fetching teachers:", error);
+    }
+  };
+
+  const [classrooms, setClassrooms] = useState(0);
+  const fetchClassrooms = async () => {
+    try {
+      const response = await axios.get(
+        "http://127.0.0.1:8000/api/total-classroom"
+      );
+      console.log(response.data);
+      setClassrooms(response.data.data);
+    } catch (error) {
+      console.error("Error fetching classrooms:", error);
     }
   };
 
@@ -85,6 +96,10 @@ import axios from "axios";
 
     const handlePressOfficer = () => {
       navigation.navigate("OfficerIndex");
+    };
+
+    const handlePressClass = () => {
+      navigation.navigate("ClassroomIndex");
     };
 
   return (
@@ -148,7 +163,7 @@ import axios from "axios";
           </Text>
         </TouchableOpacity>
 
-        <View>
+        <TouchableOpacity onPress={handlePressClass}>
           <View className="bg-white rounded-3xl">
             <View className="m-6">
               <Image
@@ -158,9 +173,9 @@ import axios from "axios";
             </View>
           </View>
           <Text className="font-medium text-base text-blue-950 text-center mt-2">
-            Classes
+            {classrooms} Class
           </Text>
-        </View>
+        </TouchableOpacity>
       </View>
 
       {/* Data */}

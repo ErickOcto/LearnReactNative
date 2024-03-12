@@ -8,9 +8,7 @@ const TeacherEdit = ({ route, navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nis, setNis] = useState("");
-  const [majors, setMajors] = useState([]);
   const [classrooms, setClassrooms] = useState([]);
-  const [selectedMajor, setSelectedMajor] = useState(null);
   const [selectedClassroom, setSelectedClassroom] = useState(null);
   const teacherId = route.params.teacherId;
 
@@ -24,7 +22,6 @@ const TeacherEdit = ({ route, navigation }) => {
         const response = await axios.get(
           "http://127.0.0.1:8000/api/student-create-option"
         );
-        setMajors(response.data.majors);
         setClassrooms(response.data.classrooms);
       } catch (error) {
         console.error("Error fetching options:", error);
@@ -54,7 +51,7 @@ const TeacherEdit = ({ route, navigation }) => {
   }, [teacherId]);
 
   const handleUpdateTeacher = async () => {
-    if (selectedClassroom == null && selectedMajor == null) {
+    if (selectedClassroom == null) {
       Alert.alert("Please select a classroom and  a major");
     }
     try {
@@ -63,7 +60,6 @@ const TeacherEdit = ({ route, navigation }) => {
         email: email,
         nis: nis,
         password: password,
-        major_id: selectedMajor,
         classroom_id: selectedClassroom,
       };
       await axios.put(
@@ -71,11 +67,9 @@ const TeacherEdit = ({ route, navigation }) => {
         requestData
       );
       Alert.alert("Success", "Teacher updated successfully");
-      console.log(selectedClassroom, selectedMajor);
       navigation.goBack();
     } catch (error) {
       console.error("Error updating teacher:", error);
-      console.log(selectedClassroom, selectedMajor);
       Alert.alert("Error", "Failed to update teacher. Please try again.");
     }
   };
@@ -114,14 +108,6 @@ const TeacherEdit = ({ route, navigation }) => {
           value={password}
           placeholder="Password"
           secureTextEntry={true}
-        />
-        <Text className="font-bold text-sm mb-2 text-blue-950">Major</Text>
-        <RNPickerSelect
-          onValueChange={(value) => setSelectedMajor(value)}
-          items={majors.map((major) => ({
-            label: major.name,
-            value: major.id,
-          }))}
         />
         <View className="mb-4"></View>
         <Text className="font-bold text-sm mb-2 text-blue-950">Classroom</Text>
