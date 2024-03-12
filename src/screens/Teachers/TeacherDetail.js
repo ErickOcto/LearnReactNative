@@ -6,6 +6,7 @@ const TeacherDetail = ({ route, navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [nis, setNis] = useState("");
+  const [bio, setBio] = useState("");
   const [classroom, setClassroom] = useState("");
   const [major, setMajor] = useState("");
 
@@ -21,10 +22,11 @@ const TeacherDetail = ({ route, navigation }) => {
         const response = await axios.get(
           `http://127.0.0.1:8000/api/detail-teacher/${teacherId}`
         );
-        const { name, email, nis, classroom_name, major_name } = response.data.data;
+        const { name, email, nis, classroom_name, major_name, bio } = response.data.data;
         setName(name);
         setEmail(email);
         setNis(nis);
+        setBio(bio);
         setClassroom(classroom_name);
         setMajor(major_name);
         console.log(teacherId);
@@ -81,6 +83,14 @@ const TeacherDetail = ({ route, navigation }) => {
           </Text>
           <Text className="font-medium text-base mb-2 text-slate-400">
             {major}
+          </Text>
+        </View>
+        <View className="flex-row items-center justify-between">
+          <Text className="font-medium text-base mb-2 text-blue-950">
+            Description
+          </Text>
+          <Text className="font-medium text-base mb-2 text-slate-400">
+            {bio}
           </Text>
         </View>
 

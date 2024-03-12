@@ -8,6 +8,7 @@ const TeacherEdit = ({ route, navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nis, setNis] = useState("");
+  const [bio, setBio] = useState("");
   const [classrooms, setClassrooms] = useState([]);
   const [selectedClassroom, setSelectedClassroom] = useState(null);
   const teacherId = route.params.teacherId;
@@ -37,10 +38,11 @@ const TeacherEdit = ({ route, navigation }) => {
         const response = await axios.get(
           `http://127.0.0.1:8000/api/teachers/${teacherId}`
         );
-        const { name, email, nis } = response.data.data;
+        const { name, email, nis, bio } = response.data.data;
         setName(name);
         setEmail(email);
         setNis(nis);
+        setBio(bio);
         console.log(teacherId);
       } catch (error) {
         console.error("Error fetching teacher detail:", error);
@@ -59,6 +61,7 @@ const TeacherEdit = ({ route, navigation }) => {
         name: name,
         email: email,
         nis: nis,
+        bio: bio,
         password: password,
         classroom_id: selectedClassroom,
       };
@@ -109,7 +112,6 @@ const TeacherEdit = ({ route, navigation }) => {
           placeholder="Password"
           secureTextEntry={true}
         />
-        <View className="mb-4"></View>
         <Text className="font-bold text-sm mb-2 text-blue-950">Classroom</Text>
         <RNPickerSelect
           onValueChange={(value) => setSelectedClassroom(value)}
@@ -117,6 +119,13 @@ const TeacherEdit = ({ route, navigation }) => {
             label: classroom.name,
             value: classroom.id,
           }))}
+        />
+        <Text className="font-bold text-sm mb-2 text-blue-950 mt-4">Description</Text>
+        <TextInput
+          className="w-full font-normal rounded-xl border border-slate-200 p-3 mb-4 focus:border-blue-700"
+          onChangeText={setBio}
+          value={bio}
+          placeholder="Description"
         />
         <View className="mb-10"></View>
         <View className="flex-row gap-x-2 items-center justify-end">

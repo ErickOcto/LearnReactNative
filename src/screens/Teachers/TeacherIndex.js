@@ -69,67 +69,95 @@ const TeacherIndex = () => {
           className="mx-6 mt-8 flex-1"
           showsVerticalScrollIndicator={false}
         >
-          {teachers.map((teacher) => (
-            <View
-              key={teacher.id}
-              className="bg-white p-6 rounded-3xl flex-row justify-between items-center mb-4"
-            >
-              <View className="flex-row justify-between items-center">
-                <Image
-                  source={{
-                    uri: teacher.image
-                      ? `http://127.0.0.1:8000/storage/users/${teacher.image}`
-                      : "http://127.0.0.1:8000/users/user_pp_default.jpeg",
-                  }}
-                  style={{
-                    width: 60,
-                    height: 60,
-                    resizeMode: "cover",
-                    borderRadius: 400,
-                  }}
-                />
-                <View className="px-2"></View>
-                <View className="w-[200]">
+          {teachers.length == 0 ? (
+            <View className="flex-1 items-center">
+              <Image
+                className="w-[340] h-[400]"
+                source={require("../assets/not-found.png")}
+                style={{
+                  resizeMode: "contain",
+                }}
+              />
+              <Text className="text-blue-950 font-bold text-xl mb-4">
+                No Teacher Data
+              </Text>
+              <TouchableOpacity
+                className="w-1/2 bg-blue-700 rounded-full active:bg-black "
+                onPress={handlePressCreate}
+              >
+                <Text className="py-3 text-center text-white font-bold text-base">
+                  Create Now
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            teachers.map((teacher) => (
+              <View
+                key={teacher.id}
+                className="bg-white p-6 rounded-3xl flex-row justify-between items-center mb-4"
+              >
+                <View className="flex-row justify-between items-center">
+                  <Image
+                    source={{
+                      uri: teacher.image
+                        ? `http://127.0.0.1:8000/storage/users/${teacher.image}`
+                        : "http://127.0.0.1:8000/users/user_pp_default.jpeg",
+                    }}
+                    style={{
+                      width: 60,
+                      height: 60,
+                      resizeMode: "cover",
+                      borderRadius: 400,
+                    }}
+                  />
+                  <View className="px-2"></View>
+                  <View className="w-[200]">
+                    <TouchableOpacity
+                      onPress={() => handlePressDetail(teacher.id)}
+                    >
+                      <Text className="font-bold text-blue-950 text-base">
+                        {teacher.name}
+                      </Text>
+                      <Text className="text-slate-500 text-base">
+                        {teacher.email}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View className="flex-col items-center gap-2">
                   <TouchableOpacity
-                    onPress={() => handlePressDetail(teacher.id)}
+                    onPress={() => handleDeleteTeacher(teacher.id)}
                   >
-                    <Text className="font-bold text-blue-950 text-base">
-                      {teacher.name}
-                    </Text>
-                    <Text className="text-slate-500 text-base">
-                      {teacher.email}
-                    </Text>
+                    <FontAwesome name="trash" size={24} color="#FF1E39" />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => handlePressEdit(teacher.id)}>
+                    <FontAwesome name="pencil" size={24} color="#EBC200" />
                   </TouchableOpacity>
                 </View>
               </View>
-              <View className="flex-col items-center gap-2">
-                <TouchableOpacity
-                  onPress={() => handleDeleteTeacher(teacher.id)}
-                >
-                  <FontAwesome name="trash" size={24} color="#FF1E39" />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePressEdit(teacher.id)}>
-                  <FontAwesome name="pencil" size={24} color="#EBC200" />
-                </TouchableOpacity>
-              </View>
-            </View>
-          ))}
+            ))
+          )}
+          <View className="my-10"></View>
         </ScrollView>
       </View>
-      <TouchableOpacity
-        onPress={handlePressCreate}
-        className="p-4 bg-blue-950 absolute bottom-6 right-6 rounded-full"
-      >
-        <Image
-          source={require("../assets/plus-circle.png")}
-          style={{
-            width: 36,
-            height: 36,
-            resizeMode: "cover",
-            borderRadius: 400,
-          }}
-        />
-      </TouchableOpacity>
+      {teachers.length == 0 ? (
+        ""
+      ) : (
+        <TouchableOpacity
+          onPress={handlePressCreate}
+          className="p-4 bg-blue-950 absolute bottom-6 right-6 rounded-full"
+        >
+          <Image
+            source={require("../assets/plus-circle.png")}
+            style={{
+              width: 36,
+              height: 36,
+              resizeMode: "cover",
+              borderRadius: 400,
+            }}
+          />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

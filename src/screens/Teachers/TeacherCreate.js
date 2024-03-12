@@ -10,6 +10,7 @@ const TeacherCreate = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nis, setNis] = useState("");
+  const [bio, setBio] = useState("");
   const [loading, setLoading] = useState(false);
   const [classrooms, setClassrooms] = useState([]);
   const [selectedClassroom, setSelectedClassroom] = useState(null);
@@ -43,6 +44,7 @@ const TeacherCreate = () => {
         email: email,
         password: password,
         nis: nis,
+        bio: bio,
         classroom_id: selectedClassroom,
       };
       console.log("Data:", requestData);
@@ -98,7 +100,6 @@ const TeacherCreate = () => {
           onChangeText={setPassword}
           secureTextEntry
         />
-        <View className="my-2"></View>
         <Text className="font-bold text-sm mb-2 text-blue-950">Classroom</Text>
         <RNPickerSelect
           style={defaultStyles}
@@ -108,7 +109,15 @@ const TeacherCreate = () => {
             value: classroom.id,
           }))}
         />
-        <View className="my-5"></View>
+        <Text className="font-bold text-sm mb-2 text-blue-950 mt-4">Description</Text>
+        <TextInput
+        multiline
+        numberOfLines={3}
+          className="w-full font-normal rounded-xl border border-slate-200 p-3 mb-10 focus:border-blue-700"
+          placeholder="Description"
+          value={bio}
+          onChangeText={setBio}
+        />
         <View className="flex-row gap-x-2 items-center justify-end">
           <TouchableOpacity
             className="w-1/3 border-blue-700 border rounded-full active:bg-black"
