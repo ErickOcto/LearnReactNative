@@ -43,7 +43,7 @@ const TeacherEdit = ({ route, navigation }) => {
         const { name, email, nis } = response.data.data;
         setName(name);
         setEmail(email);
-        setNis(nis.toString());
+        setNis(nis);
         console.log(teacherId);
       } catch (error) {
         console.error("Error fetching teacher detail:", error);
@@ -98,7 +98,7 @@ const TeacherEdit = ({ route, navigation }) => {
           className="w-full font-normal rounded-xl border border-slate-200 p-3 mb-4 focus:border-blue-700"
           onChangeText={setNis}
           value={nis}
-          placeholder="NIS"
+          placeholder="NIP"
         />
         <Text className="font-bold text-sm mb-2 text-blue-950">Email</Text>
         <TextInput

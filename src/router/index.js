@@ -14,6 +14,7 @@ import StudentEdit from '../screens/Student/StudentEdit';
 import TeacherIndex from '../screens/Teachers/TeacherIndex';
 import TeacherCreate from '../screens/Teachers/TeacherCreate';
 import TeacherEdit from '../screens/Teachers/TeacherEdit';
+import TeacherDetail from '../screens/Teachers/TeacherDetail';
 
 // Import Officer CRUD
 import OfficerIndex from '../screens/Officer/OfficerIndex';
@@ -31,18 +32,37 @@ const Router = () => {
         <Stack.Screen name="HomePage" component={HomePage}></Stack.Screen>
 
         {/* Student CRUD */}
-        <Stack.Screen name="StudentIndex" component={StudentIndex}></Stack.Screen>
-        <Stack.Screen name="StudentCreate" component={StudentCreate}></Stack.Screen>
+        <Stack.Screen
+          name="StudentIndex"
+          component={StudentIndex}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="StudentCreate"
+          component={StudentCreate}
+        ></Stack.Screen>
         <Stack.Screen name="StudentEdit" component={StudentEdit}></Stack.Screen>
 
         {/* Teacher CRUD */}
-        <Stack.Screen name="TeacherIndex" component={TeacherIndex}></Stack.Screen>
-        <Stack.Screen name="TeacherCreate" component={TeacherCreate}></Stack.Screen>
+        <Stack.Screen
+          name="TeacherIndex"
+          component={TeacherIndex}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="TeacherCreate"
+          component={TeacherCreate}
+        ></Stack.Screen>
         <Stack.Screen name="TeacherEdit" component={TeacherEdit}></Stack.Screen>
+        <Stack.Screen name="TeacherDetail" component={TeacherDetail}></Stack.Screen>
 
         {/* Officer CRUD */}
-        <Stack.Screen name="OfficerIndex" component={OfficerIndex}></Stack.Screen>
-        <Stack.Screen name="OfficerCreate" component={OfficerCreate}></Stack.Screen>
+        <Stack.Screen
+          name="OfficerIndex"
+          component={OfficerIndex}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="OfficerCreate"
+          component={OfficerCreate}
+        ></Stack.Screen>
         <Stack.Screen name="OfficerEdit" component={OfficerEdit}></Stack.Screen>
       </Stack.Navigator>
     );

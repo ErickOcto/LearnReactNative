@@ -23,6 +23,10 @@ const StudentIndex = () => {
     navigation.navigate("StudentEdit", { studentId });
   };
 
+  const handlePressDetail = (teacherId) => {
+    navigation.navigate("TeacherDetail", { teacherId });
+  };
+
   const [students, setStudents] = useState([]);
 
   const fetchStudents = async () => {
@@ -86,12 +90,16 @@ const StudentIndex = () => {
                 />
                 <View className="px-2"></View>
                 <View className="w-[200]">
-                  <Text className="font-bold text-blue-950 text-base">
-                    {student.name}
-                  </Text>
-                  <Text className="text-slate-500 text-base">
-                    {student.email}
-                  </Text>
+                  <TouchableOpacity
+                    onPress={() => handlePressDetail(student.id)}
+                  >
+                    <Text className="font-bold text-blue-950 text-base">
+                      {student.name}
+                    </Text>
+                    <Text className="text-slate-500 text-base">
+                      {student.email}
+                    </Text>
+                  </TouchableOpacity>
                 </View>
               </View>
               <View className="flex-col items-center gap-2">

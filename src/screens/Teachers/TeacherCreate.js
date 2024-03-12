@@ -83,7 +83,7 @@ const TeacherCreate = () => {
         <Text className="font-bold text-sm mb-2 text-blue-950">NIP</Text>
         <TextInput
           className="font-normal rounded-xl border border-slate-200 p-3 mb-4 focus:border-blue-700 w-full"
-          placeholder="NIS"
+          placeholder="NIP"
           value={nis}
           onChangeText={setNis}
         />

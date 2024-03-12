@@ -23,6 +23,10 @@ const TeacherIndex = () => {
     navigation.navigate("TeacherEdit", { teacherId });
   };
 
+  const handlePressDetail = (teacherId) => {
+    navigation.navigate("TeacherDetail", { teacherId });
+  };
+
   const [teachers, setTeachers] = useState([]);
 
   const fetchTeachers = async () => {
@@ -86,12 +90,16 @@ const TeacherIndex = () => {
                 />
                 <View className="px-2"></View>
                 <View className="w-[200]">
-                  <Text className="font-bold text-blue-950 text-base">
-                    {teacher.name}
-                  </Text>
-                  <Text className="text-slate-500 text-base">
-                    {teacher.email}
-                  </Text>
+                  <TouchableOpacity
+                    onPress={() => handlePressDetail(teacher.id)}
+                  >
+                    <Text className="font-bold text-blue-950 text-base">
+                      {teacher.name}
+                    </Text>
+                    <Text className="text-slate-500 text-base">
+                      {teacher.email}
+                    </Text>
+                  </TouchableOpacity>
                 </View>
               </View>
               <View className="flex-col items-center gap-2">
