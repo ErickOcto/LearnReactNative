@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  TextInput,
 } from "react-native";
 import axios from "axios";
 import BackButton from "../../components/BackButton";
@@ -13,6 +14,12 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 const StudentIndex = () => {
+
+    const [searchKeyword, setSearchKeyword] = useState("");
+    const handleSearch = (text) => {
+      setSearchKeyword(text);
+    };
+
   const navigation = useNavigation();
 
   const handlePressCreate = () => {
@@ -23,20 +30,27 @@ const StudentIndex = () => {
     navigation.navigate("StudentEdit", { studentId });
   };
 
-  const handlePressDetail = (teacherId) => {
-    navigation.navigate("TeacherDetail", { teacherId });
+  const handlePressDetail = (studentId) => {
+    navigation.navigate("StudentDetail", { studentId });
   };
 
-  const [students, setStudents] = useState([]);
+  const [students, setStudents] = useState("");
 
   const fetchStudents = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/students");
+    let url = "http://127.0.0.1:8000/api/students";
+    if (searchKeyword) {
+      url = `http://127.0.0.1:8000/api/student-search?name=${searchKeyword}`;
+    }
+    const response = await axios.get(url);
       setStudents(response.data.data);
     } catch (error) {
       console.error("Error fetching students:", error);
     }
   };
+
+  
+
 
   const handleDeleteStudent = async (studentId) => {
     try {
@@ -51,7 +65,7 @@ const StudentIndex = () => {
   useFocusEffect(
     useCallback(() => {
       fetchStudents();
-    }, [])
+    }, [searchKeyword])
   );
 
   return (
@@ -65,8 +79,16 @@ const StudentIndex = () => {
         </View>
       </View>
       <View className="w-full flex-1">
+        {/* <View className="bg-white mx-6 rounded-3xl my-4 p-3"> */}
+          <TextInput
+            className="mx-6 my-4 font-normal rounded-xl border border-slate-200 p-3 focus:border-blue-700"
+            onChangeText={handleSearch}
+            value={searchKeyword}
+            placeholder="Search Officers"
+          />
+        {/* </View> */}
         <ScrollView
-          className="mx-6 mt-8 flex-1"
+          className="mx-6 flex-1"
           showsVerticalScrollIndicator={false}
         >
           {students.length == 0 ? (

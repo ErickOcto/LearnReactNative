@@ -57,6 +57,23 @@ import axios from "axios";
     }, [])
   );
 
+  // Fungsi untuk menampilkan semua data yang tersimpan di AsyncStorage
+const displayAsyncStorageData = async () => {
+  try {
+    const keys = await AsyncStorage.getAllKeys();
+    const data = await AsyncStorage.multiGet(keys);
+
+    console.log('Data stored in AsyncStorage:');
+    data.forEach(([key, value]) => {
+      console.log(`${key}: ${value}`);
+    });
+  } catch (error) {
+    console.error('Failed to retrieve AsyncStorage data:', error);
+  }
+};
+
+// Panggil fungsi displayAsyncStorageData untuk menampilkan data
+displayAsyncStorageData();
 
   const [teachers, setTeachers] = useState(0);
   const fetchTeachers = async () => {

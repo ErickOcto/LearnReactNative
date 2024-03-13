@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  TextInput,
 } from "react-native";
 import axios from "axios";
 import BackButton from "../../components/BackButton";
@@ -15,6 +16,13 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 const OfficerIndex = () => {
   const navigation = useNavigation();
 
+  const [searchKeyword, setSearchKeyword] = useState("");
+  
+  const handleSearch = (text) => {
+    setSearchKeyword(text);
+  };
+
+
   const handlePressCreate = () => {
     navigation.navigate("OfficerCreate");
   };
@@ -23,11 +31,15 @@ const OfficerIndex = () => {
     navigation.navigate("OfficerEdit", { officerId });
   };
 
-  const [officers, setOfficers] = useState([]);
+  const [officers, setOfficers] = useState("");
 
   const fetchOfficers = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/officers");
+    let url = "http://127.0.0.1:8000/api/officers";
+    if (searchKeyword) {
+      url = `http://127.0.0.1:8000/api/officer-search?name=${searchKeyword}`;
+    }
+    const response = await axios.get(url);
       setOfficers(response.data.data);
     } catch (error) {
       console.error("Error fetching officers:", error);
@@ -47,7 +59,7 @@ const OfficerIndex = () => {
   useFocusEffect(
     useCallback(() => {
       fetchOfficers();
-    }, [])
+    }, [searchKeyword])
   );
 
   return (
@@ -61,8 +73,15 @@ const OfficerIndex = () => {
         </View>
       </View>
       <View className="w-full flex-1">
+        <TextInput
+          className="mx-6 font-normal rounded-xl border border-slate-200 p-3 my-4 focus:border-blue-700"
+          onChangeText={handleSearch}
+          value={searchKeyword}
+          placeholder="Search Officers"
+        />
+
         <ScrollView
-          className="mx-6 mt-8 flex-1"
+          className="mx-6 flex-1"
           showsVerticalScrollIndicator={false}
         >
           {officers.length == 0 ? (

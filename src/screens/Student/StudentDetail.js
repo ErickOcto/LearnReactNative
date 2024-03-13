@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Alert } from "react-native";
+import { View, Text, TouchableOpacity} from "react-native";
 import axios from "axios";
 
 const TeacherDetail = ({ route, navigation }) => {
@@ -9,7 +9,7 @@ const TeacherDetail = ({ route, navigation }) => {
   const [classroom, setClassroom] = useState("");
   const [major, setMajor] = useState("");
 
-  const teacherId = route.params.teacherId;
+  const studentId = route.params.studentId;
 
   const handleBack = () => {
     navigation.goBack();
@@ -19,7 +19,7 @@ const TeacherDetail = ({ route, navigation }) => {
     const fetchTeacherDetail = async () => {
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/api/detail-teacher/${teacherId}`
+          `http://127.0.0.1:8000/api/detail-student/${studentId}`
         );
         const { name, email, nis, classroom_name, major_name } = response.data.data;
         setName(name);
@@ -27,14 +27,14 @@ const TeacherDetail = ({ route, navigation }) => {
         setNis(nis);
         setClassroom(classroom_name);
         setMajor(major_name);
-        console.log(teacherId);
+        console.log(studentId);
       } catch (error) {
-        console.error("Error fetching teacher detail:", error);
+        console.error("Error fetching student detail:", error);
       }
     };
 
     fetchTeacherDetail();
-  }, [teacherId]);
+  }, [studentId]);
 
   return (
     <View className=" items-center justify-center mx-6">
@@ -48,7 +48,7 @@ const TeacherDetail = ({ route, navigation }) => {
           Detail : {name}
         </Text>
         <View className="flex-row items-center justify-between">
-          <Text className="font-medium text-base mb-2 text-blue-950">NIP</Text>
+          <Text className="font-medium text-base mb-2 text-blue-950">NIS</Text>
           {nis ? (
             <Text className="font-medium text-base mb-2 text-slate-400">
               {nis}

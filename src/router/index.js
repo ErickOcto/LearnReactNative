@@ -9,6 +9,7 @@ import HomePage from '../screens/HomePage';
 import StudentIndex from '../screens/Student/StudentIndex';
 import StudentCreate from '../screens/Student/StudentCreate';
 import StudentEdit from '../screens/Student/StudentEdit';
+import StudentDetail from '../screens/Student/StudentDetail';
 
 // Import Teacher CRUD
 import TeacherIndex from '../screens/Teachers/TeacherIndex';
@@ -45,6 +46,10 @@ const Router = () => {
           component={StudentCreate}
         ></Stack.Screen>
         <Stack.Screen name="StudentEdit" component={StudentEdit}></Stack.Screen>
+        <Stack.Screen
+          name="StudentDetail"
+          component={StudentDetail}
+        ></Stack.Screen>
 
         {/* Teacher CRUD */}
         <Stack.Screen
@@ -73,8 +78,14 @@ const Router = () => {
         <Stack.Screen name="OfficerEdit" component={OfficerEdit}></Stack.Screen>
 
         {/* Classroom CRUD */}
-        <Stack.Screen name="ClassroomIndex" component={ClassroomIndex}></Stack.Screen>
-        <Stack.Screen name="ClassroomCreate" component={ClassroomCreate}></Stack.Screen>
+        <Stack.Screen
+          name="ClassroomIndex"
+          component={ClassroomIndex}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="ClassroomCreate"
+          component={ClassroomCreate}
+        ></Stack.Screen>
       </Stack.Navigator>
     );
 };

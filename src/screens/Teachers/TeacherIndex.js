@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  TextInput,
 } from "react-native";
 import axios from "axios";
 import BackButton from "../../components/BackButton";
@@ -14,6 +15,11 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 const TeacherIndex = () => {
   const navigation = useNavigation();
+
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const handleSearch = (text) => {
+    setSearchKeyword(text);
+  };
 
   const handlePressCreate = () => {
     navigation.navigate("TeacherCreate");
@@ -27,11 +33,15 @@ const TeacherIndex = () => {
     navigation.navigate("TeacherDetail", { teacherId });
   };
 
-  const [teachers, setTeachers] = useState([]);
+  const [teachers, setTeachers] = useState("");
 
   const fetchTeachers = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/teachers");
+    let url = "http://127.0.0.1:8000/api/teachers";
+    if (searchKeyword) {
+      url = `http://127.0.0.1:8000/api/teacher-search?name=${searchKeyword}`;
+    }
+    const response = await axios.get(url);
       setTeachers(response.data.data);
     } catch (error) {
       console.error("Error fetching teachers:", error);
@@ -51,7 +61,7 @@ const TeacherIndex = () => {
   useFocusEffect(
     useCallback(() => {
       fetchTeachers();
-    }, [])
+    }, [searchKeyword])
   );
 
   return (
@@ -65,8 +75,14 @@ const TeacherIndex = () => {
         </View>
       </View>
       <View className="w-full flex-1">
+        <TextInput
+          className="mx-6 font-normal rounded-xl border border-slate-200 p-3 my-4 focus:border-blue-700"
+          onChangeText={handleSearch}
+          value={searchKeyword}
+          placeholder="Search Officers"
+        />
         <ScrollView
-          className="mx-6 mt-8 flex-1"
+          className="mx-6 flex-1"
           showsVerticalScrollIndicator={false}
         >
           {teachers.length == 0 ? (
